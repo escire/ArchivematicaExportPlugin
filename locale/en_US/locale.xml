@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<locale name="en_US" full_name="U.S. English">
+	<message key="plugins.importexport.archivematica.displayName">Archivematica export Plugin</message>
+	<message key="plugins.importexport.archivematica.description">Export issues to Archivematica for its preservation.</message>
+	<message key="plugins.importexport.archivematica.exporttab">Data export</message>
+	<message key="plugins.importexport.archivematica.export">Export</message>	
+	<message key="plugins.importexport.archivematica.exportSubmissions">Export articles</message>
+	<message key="plugins.importexport.archivematica.exportIssues">Export issues</message>
+	<message key="plugins.importexport.archivematica.articleExportSuccess">Article(s) was successfully exported.</message>
+	<message key="plugins.importexport.archivematica.issueExportSuccess">Issue(s) was successfully exported.</message>
+	<message key="plugins.importexport.archivematica.errorSendingFile">files were not sent.</message>
+	<message key="plugins.importexport.archivematica.errorContactAdmin">. Please contact the system administrator.</message>
+	<message key="plugins.importexport.archivematica.errorExportIssues">An error has occurred:</message>
+	<message key="plugins.importexport.archivematica.select">Select</message>
+	<message key="plugins.importexport.archivematica.number">Number</message>
+	<message key="plugins.importexport.archivematica.status">Status</message>
+	<message key="plugins.importexport.archivematica.selectCheckbox">Please select a box</message>
+	<message key="plugins.importexport.archivematica.article">Articles (Preserved/Totals)</message>
+	<message key="plugins.importexport.archivematica.art">Articles</message>
+	<message key="plugins.importexport.archivematica.exportArticles">Export articles</message>
+	<message key="plugins.importexport.archivematica.exportSelectedArticles">Export selected articles</message>
+	<message key="plugins.importexport.archivematica.maxAllowedDeposits">The maximum number of deposits allowed has been reached.</message>
+	<message key="plugins.importexport.archivematica.preserved">Preserved</message>
+	<message key="plugins.importexport.archivematica.partiallyPreserved">Partially Preserved</message>
+	<message key="plugins.importexport.archivematica.notPreserved">Not preserved</message>
+	<message key="plugins.importexport.archivematica.expiredContract">Expired subscription</message>
+	<message key="plugins.importexport.archivematica.availableDeposits">Available deposits</message>
+	<message key="plugins.importexport.archivematica.settings">Settings</message>
+	<message key="plugins.importexport.archivematica.ArchivematicaStorageServiceUrl">URL of Archivematica storage service</message>
+
+	<message key="plugins.importexport.archivematica.ArchivematicaStorageServiceSpaceUUID">UUID of Storage Space</message>
+	<message key="plugins.importexport.archivematica.ArchivematicaStorageServiceUser">Username</message>
+	<message key="plugins.importexport.archivematica.ArchivematicaStorageServicePassword">Password</message>
+	<message key="plugins.importexport.archivematica.invalidUrl">invalid URL</message>
+	<message key="plugins.importexport.archivematica.fieldRequired">This field is required</message>
+
+</locale>
