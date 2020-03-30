@@ -37,7 +37,7 @@ Configure Fedora repository in Archivematica:
 https://wiki.archivematica.org/Storage_Service#FEDORA_via_SWORD2
 ```
 
-![](/home/manuel/Descargas/fedoraSpaceArchivematica.png)
+![](/templates/images/fedoraSpaceArchivematica.png)
 
 
 
@@ -55,7 +55,7 @@ Install Plugin:
 
 Setting up the required fields on the Archivematica Plugin Form
 
-![](/home/manuel/Descargas/ArchivematicaPluginSettings.png)
+![](/templates/images/ArchivematicaPluginSettings.png)
 
 | Field                                | Description                                                  |
 | ------------------------------------ | ------------------------------------------------------------ |
@@ -72,4 +72,4 @@ Setting up the required fields on the Archivematica Plugin Form
 
 Now you can start transfers from OJS to the preservation system, Articles or Issues:
 
-![](/home/manuel/Descargas/PluginExport.png)
+![](/templates/images//PluginExport.png)
