@@ -14,6 +14,7 @@ class DepositWrapper extends OJSSwordDeposit{
 
 	protected $_package = null;
 	protected $_outPath = null;
+	protected $nxml = null;
 
 	/**
 	 * Constructor
@@ -36,7 +37,6 @@ class DepositWrapper extends OJSSwordDeposit{
 			$this->_outPath,
 			'deposit.zip'
 		);
-
 
 		$journalDao = DAORegistry::getDAO('JournalDAO');
 		$this->_context = $journalDao->getById($submission->getContextId());
@@ -63,6 +63,13 @@ class DepositWrapper extends OJSSwordDeposit{
 		return $this->_package;
 	}
 
+	function setNativeXML($xml){
+		$this->nxml = $xml;
+	}
+
+	function getNativeXML(){
+		return $this->nxml;
+	}
 
 	/**
 	 * Create the package and put costum data
@@ -78,7 +85,7 @@ class DepositWrapper extends OJSSwordDeposit{
 				$package->sac_root_in . '/' . $package->sac_dir_in . '/' . $package->sac_metadata_filename . ")");
 		}
 
-		$label = 'journalId-' .  $submission->getData("journalId") . '--' .'issueId-' .  $submission->getData("issueId") . '--' . 'articleId' . $submission->getData("id");
+		$label = 'journalId-' .  $submission->getData("journalId") . '--' .'issueId-' .  $submission->getData("issueId") . '--' . 'articleId-' . $submission->getData("id");
 		$package->setLabel($label);
 		$package->writeHeader($fh);
 		$package->writeDmdSec($fh);
@@ -87,11 +94,15 @@ class DepositWrapper extends OJSSwordDeposit{
 		$package->writeFooter($fh);    
 		fclose($fh);
 
+		file_put_contents($package->sac_root_in . '/' . $package->sac_dir_in . '/metadata.xml', $this->getNativeXML());
         // Create the zipped package (force an overwrite if it already exists)
 		$zip = new ZipArchive();
 		$zip->open($package->sac_root_out . '/' . $package->sac_file_out, ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE);
 		$zip->addFile($package->sac_root_in . '/' . $package->sac_dir_in . '/mets.xml', 
 			'mets.xml');
+		$zip->addFile($package->sac_root_in . '/' . $package->sac_dir_in . '/metadata.xml', 
+			'metadata.xml');
+
 		for ($i = 0; $i < $package->sac_filecount; $i++) {
 			$zip->addFile($package->sac_root_in . '/' . $package->sac_dir_in . '/' . $package->sac_files[$i], 
 				$package->sac_files[$i]);
