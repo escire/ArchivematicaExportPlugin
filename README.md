@@ -73,3 +73,9 @@ Setting up the required fields on the Archivematica Plugin Form
 Now you can start transfers from OJS to the preservation system, Articles or Issues:
 
 ![](/templates/images//PluginExport.png)
+
+------
+
+## License
+
+This software is released under the the [GNU General Public License][gpl-licence].
