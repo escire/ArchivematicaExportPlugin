@@ -1,6 +1,8 @@
 # Archivematica Export plugin
 
-### Requirements
+This plugin allows you to export articles or full numbers from OJS to an installation of Archivematica preservation software.
+
+## Requirements
 
 This Plugin was tested on the following environment:
 
@@ -12,12 +14,9 @@ This Plugin was tested on the following environment:
 - Fedora Repository 5.1
 
 
+## Installation
 
-### Installation
-
-------
-
-##### Prerequisites
+### Prerequisites
 
 Archivematica installation instructions:
 
@@ -45,13 +44,11 @@ Install Plugin:
 
 - cd [ojs_installation]/plugins/importexport
 - git clone https://github.com/escire/ArchivematicaExportPlugin.git
-- Enable plugin on Admin page : Settings / Website / Plugins 
+- Enable plugin on Admin page: Settings / Website / Plugins
 
 
 
-### Configuration
-
-------
+## Configuration
 
 Setting up the required fields on the Archivematica Plugin Form
 
@@ -66,9 +63,7 @@ Setting up the required fields on the Archivematica Plugin Form
 
 
 
-### How to use
-
-------
+## How to use
 
 Now you can start transfers from OJS to the preservation system, Articles or Issues:
 
