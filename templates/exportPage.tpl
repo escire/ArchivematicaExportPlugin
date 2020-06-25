@@ -7,13 +7,14 @@
 
 	<script type="text/javascript"> 
 	// Attach the JS file tab handler.
-	$(function() {ldelim}
+	{literal}
+	$(function(){
 		$('#exportTabs').pkpHandler('$.pkp.controllers.TabHandler');
 		$('#exportTabs').tabs('option', 'cache', true);
 
 
 		$(document).on("click", ".submitFormButton", function(e){
-			pId = $(this).parent().parent().prop("id");
+			 var pId = $(this).parent().parent().prop("id");
 			if(pId == "issuesXmlForm"){
 				var strCheck = '';
 				if($(this).hasClass("submissionButton")){
@@ -31,10 +32,12 @@
 
 		});
 
-		{rdelim});
+		});
+	{/literal}
 	</script>
 
 	<style type="text/css">
+	{literal}
 		.dot{
 			height: 20px;
 			width: 20px;
@@ -80,7 +83,7 @@
 		.info-eap-li{
 			display: flex;
 		}
-
+	{/literal}
 	</style>
 
 	<div id="exportTabs">
@@ -92,10 +95,12 @@
 		<div id="exportIssues-tab">
 
 			<script type="text/javascript">
-				$(function() {ldelim}
+			{literal}
+				$(function(){
 				// Attach the form handler.
 				$('#exportIssuesXmlForm').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
-				{rdelim});
+				})
+			{/literal};
 			</script>
 			<form id="exportIssuesXmlForm" class="pkp_form" action="{plugin_url path="exportSubmissions"}" method="post">
 				{csrf}

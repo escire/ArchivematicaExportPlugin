@@ -65,6 +65,11 @@ class ArchivematicaExportPlugin extends ImportExportPlugin {
 	}
 
 
+	function getTemplatePath($inCore = false) {
+		return parent::getTemplatePath($inCore) . 'templates/';
+	}	
+
+
 	/**
 	 * Display the plugin.
 	 * @param $args array
@@ -92,7 +97,8 @@ class ArchivematicaExportPlugin extends ImportExportPlugin {
 
 			$templateMgr->assign('pluginName', $this->getName());
 			$templateMgr->assign('exportSubmissionsListData', json_encode($exportSubmissionsListHandler->getConfig()));
-			$templateMgr->display($this->getTemplateResource('exportPage.tpl'));
+                        $templateMgr->display($this->getTemplatePath() . 'exportPage.tpl');
+
 			break;
 
 			case 'saveSettings':
@@ -323,7 +329,7 @@ class ArchivematicaExportPlugin extends ImportExportPlugin {
 				$uuid = (string)$response->id;
 				$uuid = trim($uuid);
 				if(strlen($uuid) > 3){
-					if(!array_has($data, 'depositUUID')){
+					if(!array_key_exists('depositUUID', $data)){
 						$publishedArticleDao->update('INSERT INTO submission_settings (submission_id, setting_name, setting_value, setting_type) VALUES (?, ?, ?, ?)', array($articleId, 'depositUUID', $uuid, 'string'));
 						$this->handlePackage($deposit, $uuid, false);
 					}else{

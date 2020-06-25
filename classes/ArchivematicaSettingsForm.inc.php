@@ -18,7 +18,7 @@
      */
 
     public function __construct($plugin) {
-      parent::__construct($plugin->getTemplateResource('settings.tpl'));
+      parent::__construct($plugin->getTemplatePath() . 'settings.tpl');
       $this->plugin = $plugin;
 
       $this->addCheck(new FormValidatorPost($this));

@@ -23,7 +23,7 @@ class SubmissionGridCellProvider extends GridCellProvider {
 			return array('label' => $submission->getLocalizedTitle(null));
 			case 'status':
 			$data = $submission->getAllData();
-			if (array_has($data, 'depositUUID')) {
+			if (array_key_exists('depositUUID', $data)) {
 					$status = '<span class="dot dot-deposited"></span>';
 			}else{
 				$status = '<span class="dot dot-not-deposited "></span>';
