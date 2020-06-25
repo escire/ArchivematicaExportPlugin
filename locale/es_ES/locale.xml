@@ -2,10 +2,10 @@
 <!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
 
 <locale name="es_ES" full_name="Español">
-	<message key="plugins.importexport.archivematica.displayName">Módulo de exportación números hacia Archivematica</message>
+	<message key="plugins.importexport.archivematica.displayName">Módulo de exportación hacia Archivematica</message>
 	<message key="plugins.importexport.archivematica.description">Exporta artículos o números hacia Archivematica para su preservación.</message>
 	<message key="plugins.importexport.archivematica.exporttab">Exportar datos</message>
-	<message key="plugins.importexport.archivematica.export">Exportar</message>	
+	<message key="plugins.importexport.archivematica.export">Exportar</message>
 	<message key="plugins.importexport.archivematica.exportSubmissions">Exportar Artículos</message>
 	<message key="plugins.importexport.archivematica.exportIssues">Exportar Números</message>
 	<message key="plugins.importexport.archivematica.articleExportSuccess">Artículo(s) exportado(s) correctamente.</message>
@@ -31,7 +31,6 @@
 	<message key="plugins.importexport.archivematica.availableDeposits">Depósitos disponibles</message>
 	<message key="plugins.importexport.archivematica.settings">Ajustes</message>
 	<message key="plugins.importexport.archivematica.ArchivematicaStorageServiceUrl">URL del servivio de almacenamiento de Archivematica</message>
-
 	<message key="plugins.importexport.archivematica.ArchivematicaStorageServiceSpaceUUID">UUID del espacio en el servicio de almacenamiento</message>
 	<message key="plugins.importexport.archivematica.ArchivematicaStorageServiceUser">Usuario</message>
 	<message key="plugins.importexport.archivematica.ArchivematicaStorageServicePassword">Contraseña</message>
