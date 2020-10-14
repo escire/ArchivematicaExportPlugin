@@ -74,10 +74,16 @@ class ListGridHandler extends GridHandler {
 		$dao = $this->dao;
 		if($dao['type'] == 'issue'){
 			$issueDao = $this->dao["dao"];
-			return $issueDao->getIssues($journal->getId(), $this->getGridRangeInfo($request, $this->getId()));
+			return $issueDao->getIssues($journal->getId(), null);
 		}else if($dao['type'] == 'submission'){
-			$submissionDao = $this->dao["dao"];
-			return $submissionDao->getPublishedArticles($this->getIssueId());
+			$submissionsIterator = Services::get('submission')->getMany([
+				'issueIds' => [$this->getIssueId()],
+				'contextId' => $journal->getId(),
+				'status' => STATUS_PUBLISHED,
+			]);
+
+			//print_r(iterator_to_array($submissionsIterator));
+			return iterator_to_array($submissionsIterator);
 		}
 	}
 

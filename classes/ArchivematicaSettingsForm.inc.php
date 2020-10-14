@@ -11,15 +11,17 @@
   class ArchivematicaSettingsForm extends Form {
 
     public $plugin;
+    public $request;
 
     /**
      * Constructor
      * @param $plugin ArchivematicaExportPlugin
      */
 
-    public function __construct($plugin) {
+    public function __construct($plugin, $request) {
       parent::__construct($plugin->getTemplateResource('settings.tpl'));
       $this->plugin = $plugin;
+      $this->request = $request;
 
       $this->addCheck(new FormValidatorPost($this));
       $this->addCheck(new FormValidatorCSRF($this));
@@ -35,7 +37,7 @@
      * Asign content for each field
      */
     public function initData() {
-      $contextId = $context = Request::getContext()->getId();
+      $contextId = $this->request->getContext()->getId();
       $this->setData('ArchivematicaStorageServiceUrl', $this->plugin->getSetting($contextId, 'ArchivematicaStorageServiceUrl'));
       $this->setData('ArchivematicaStorageServiceSpaceUUID', $this->plugin->getSetting($contextId, 'ArchivematicaStorageServiceSpaceUUID'));
       $this->setData('ArchivematicaStorageServiceUser', $this->plugin->getSetting($contextId, 'ArchivematicaStorageServiceUser'));
@@ -68,13 +70,13 @@
     /**
      * Save settings
      */
-    public function execute() {
+    public function execute(...$functionArgs) {
       $contextId = $context = Request::getContext()->getId();
       $this->plugin->updateSetting($contextId, 'ArchivematicaStorageServiceUrl', $this->getData('ArchivematicaStorageServiceUrl'));
       $this->plugin->updateSetting($contextId, 'ArchivematicaStorageServiceSpaceUUID', $this->getData('ArchivematicaStorageServiceSpaceUUID'));
       $this->plugin->updateSetting($contextId, 'ArchivematicaStorageServiceUser', $this->getData('ArchivematicaStorageServiceUser'));
       $this->plugin->updateSetting($contextId, 'ArchivematicaStorageServicePassword', $this->getData('ArchivematicaStorageServicePassword'));
-
+      parent::execute(...$functionArgs);
 
       import('classes.notification.NotificationManager');
       $notificationMgr = new NotificationManager();
@@ -84,6 +86,5 @@
         ['contents' => __('common.changesSaved')]
       );
 
-      return parent::execute();
     }
   }

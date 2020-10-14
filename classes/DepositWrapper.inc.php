@@ -7,10 +7,10 @@
  * @brief Override OJSSwordDeposit class to generate custom deposit
  */
 
-import('plugins.generic.sword.classes.OJSSwordDeposit');
-import('plugins.importexport.archivematica.classes.PackageWrapper');
+import('plugins.generic.sword.classes.PKPSwordDeposit');
+import('plugins.importexport.ArchivematicaExportPlugin.classes.PackageWrapper');
 
-class DepositWrapper extends OJSSwordDeposit{
+class DepositWrapper extends PKPSwordDeposit{
 
 	protected $_package = null;
 	protected $_outPath = null;
@@ -23,9 +23,10 @@ class DepositWrapper extends OJSSwordDeposit{
 	 */
 	public function __construct($submission) {
 		$this->_article = $submission;
+		$this->_submission = $submission;
 
  		// Create a directory for deposit contents
-		$this->_outPath = tempnam('/tmp', 'sword');
+		$this->_outPath = tempnam('/tmp/', 'sword');
 		unlink($this->_outPath);
 		mkdir($this->_outPath);
 		mkdir($this->_outPath . '/files');
@@ -38,20 +39,21 @@ class DepositWrapper extends OJSSwordDeposit{
 			'deposit.zip'
 		);
 
+
+		//$submission = $submission->getCurrentPublication();
 		$journalDao = DAORegistry::getDAO('JournalDAO');
-		$this->_context = $journalDao->getById($submission->getContextId());
+		$this->_context = $journalDao->getById($submission->getdata("contextId"));
 
 		$sectionDao = DAORegistry::getDAO('SectionDAO');
-		$this->_section = $sectionDao->getById($submission->getSectionId());
+		$this->_section = $sectionDao->getById($submission->getCurrentPublication()->getdata("sectionId"));
 
-		$publishedArticleDao = DAORegistry::getDAO('PublishedArticleDAO');
-		$publishedArticle = $publishedArticleDao->getByArticleId($submission->getId());
+		//$publishedArticleDao = DAORegistry::getDAO('PublishedArticleDAO');
+		//$publishedArticle = $publishedArticleDao->getByArticleId($submission->getId());
 
 		$issueDao = DAORegistry::getDAO('IssueDAO');
-		if ($publishedArticle) {
-			$this->_issue = $issueDao->getById($publishedArticle->getIssueId());
-			$this->_article = $publishedArticle;
-		}
+		$this->_issue = $issueDao->getById($submission->getCurrentPublication()->getdata("issueId"));		
+		$this->_article = Services::get('submission')->get($submission->getId());
+		//print_r($this->_article);
 	}
 
 
@@ -85,7 +87,7 @@ class DepositWrapper extends OJSSwordDeposit{
 				$package->sac_root_in . '/' . $package->sac_dir_in . '/' . $package->sac_metadata_filename . ")");
 		}
 
-		$label = 'journalId-' .  $submission->getData("journalId") . '--' .'issueId-' .  $submission->getData("issueId") . '--' . 'articleId-' . $submission->getData("id");
+		$label = 'journalId-' .  $submission->getData("contextId") . '--' .'issueId-' .  $submission->getData("issueId") . '--' . 'articleId-' . $submission->getData("id");
 		$package->setLabel($label);
 		$package->writeHeader($fh);
 		$package->writeDmdSec($fh);
@@ -129,5 +131,29 @@ class DepositWrapper extends OJSSwordDeposit{
 
 		return $sac_curl;
 	}
+
+
+	public function setMetadata($request) {
+
+
+		$this->_package->setCustodian($this->_context->getContactName());
+		$this->_package->setTitle(html_entity_decode($this->_article->getLocalizedData('title'), ENT_QUOTES, 'UTF-8'));
+		$this->_package->setAbstract(html_entity_decode(strip_tags($this->_article->getLocalizedData('abstract')), ENT_QUOTES, 'UTF-8'));
+		$this->_package->setType($this->_section->getLocalizedIdentifyType());
+		$publication = $this->_article->getCurrentPublication();
+		foreach ($publication->getData('authors') as $author) {
+			$creator = $author->getFullName(true);
+			$affiliation = $author->getLocalizedAffiliation();
+			if (!empty($affiliation)) $creator .= "; $affiliation";
+			$this->_package->addCreator($creator);
+			$this->_package->sac_name_records[] = [
+				'family' => $author->getFamilyName($publication->getData('locale')),
+				'given' => $author->getGivenName($publication->getData('locale')),
+				'email' => $author->getEmail(),
+				'primary_contact' => ($author->getId() === $publication->getData('primaryContactId'))
+			];
+		}
+	}
+
 
 }

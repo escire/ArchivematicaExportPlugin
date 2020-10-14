@@ -13,7 +13,7 @@ class SubmissionGridCellProvider extends GridCellProvider {
 	function getTemplateVarsFromRowColumn($row, $column) {
 		$submission = $row->getData();
 
-		$submissionId = $submission->getId();
+		$submissionId = $submission->getdata("id");
 
 		switch ($column->getId()) {
 			case 'select':
