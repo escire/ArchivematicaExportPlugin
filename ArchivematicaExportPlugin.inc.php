@@ -360,7 +360,7 @@ class ArchivematicaExportPlugin extends ImportExportPlugin {
 				$uuid = trim($uuid);
 				if(strlen($uuid) > 3){
 					if(!array_has($data, 'depositUUID')){
-						$publishedArticleDao->update('INSERT INTO submission_settings (submission_id, setting_name, setting_value, setting_type) VALUES (?, ?, ?, ?)', array($articleId, 'depositUUID', $uuid, 'string'));
+						$publishedArticleDao->update('INSERT INTO publication_settings (submission_id, setting_name, setting_value) VALUES (?, ?, ?, ?)', array($articleId, 'depositUUID', $uuid));
 						$this->handlePackage($deposit, $uuid, false);
 					}else{
 						$this->handlePackage($deposit, $data["depositUUID"], true);
@@ -374,6 +374,8 @@ class ArchivematicaExportPlugin extends ImportExportPlugin {
 					'title' => $submission->getLocalizedTitle(),
 					'message' => $e->getMessage(),
 				);
+
+				//print_r($errors);
 			}
 		}
 		return $depositCount;

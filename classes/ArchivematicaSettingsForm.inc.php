@@ -37,7 +37,7 @@
      * Asign content for each field
      */
     public function initData() {
-      $contextId = $this->request->getContext()->getId();
+      $contextId  = Registry::get('request')->getJournal()->getId();
       $this->setData('ArchivematicaStorageServiceUrl', $this->plugin->getSetting($contextId, 'ArchivematicaStorageServiceUrl'));
       $this->setData('ArchivematicaStorageServiceSpaceUUID', $this->plugin->getSetting($contextId, 'ArchivematicaStorageServiceSpaceUUID'));
       $this->setData('ArchivematicaStorageServiceUser', $this->plugin->getSetting($contextId, 'ArchivematicaStorageServiceUser'));
@@ -71,7 +71,8 @@
      * Save settings
      */
     public function execute(...$functionArgs) {
-      $contextId = $context = Request::getContext()->getId();
+      $contextId  = Registry::get('request')->getJournal()->getId();
+      $userId  = Registry::get('request')->getUser()->getId();
       $this->plugin->updateSetting($contextId, 'ArchivematicaStorageServiceUrl', $this->getData('ArchivematicaStorageServiceUrl'));
       $this->plugin->updateSetting($contextId, 'ArchivematicaStorageServiceSpaceUUID', $this->getData('ArchivematicaStorageServiceSpaceUUID'));
       $this->plugin->updateSetting($contextId, 'ArchivematicaStorageServiceUser', $this->getData('ArchivematicaStorageServiceUser'));
@@ -81,7 +82,7 @@
       import('classes.notification.NotificationManager');
       $notificationMgr = new NotificationManager();
       $notificationMgr->createTrivialNotification(
-        Request::getUser()->getId(),
+        $userId,
         NOTIFICATION_TYPE_SUCCESS,
         ['contents' => __('common.changesSaved')]
       );
