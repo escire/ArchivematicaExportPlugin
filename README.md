@@ -1,4 +1,4 @@
-# Archivematica Export plugin
+# Module Digital Preservation plugin for Open Journal Systems
 
 This plugin allows you to export articles or full numbers from OJS to an installation of Archivematica preservation software.
 
